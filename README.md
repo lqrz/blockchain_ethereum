@@ -2,7 +2,7 @@
 
 Repo with some toy examples on Solidity.
 
-### greeter.sol
+### greeter
 Contains a simple inheritance example.
 
 ### greeter_replier
