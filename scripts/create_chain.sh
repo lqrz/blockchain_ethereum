@@ -1,0 +1,1 @@
+geth --identity lqrzNode --rpc --rpccorsdomain http://localhost --rpcport 3000 --rpcapi eth,web3,personal --datadir /home/lquiroz/Documents/anchormen/blockchain/lqrz_data_dir/ --port 30303 --nodiscover --networkid 1986 init /home/lquiroz/Documents/anchormen/blockchain/lqrz_data_dir/genesis.json
