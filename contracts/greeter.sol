@@ -1,3 +1,6 @@
+pragma solidity ^0.4.0;
+
+
 contract Mortal {
     /* Define variable owner of the type address*/
     address owner;
@@ -14,6 +17,7 @@ contract Mortal {
         }
     }
 }
+
 
 contract Greeter is Mortal {
     /* define variable greeting of the type string */
