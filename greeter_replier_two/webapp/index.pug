@@ -1,0 +1,42 @@
+html
+	head
+		doctype html
+		title= title
+
+		// FONT
+		link(href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css")
+
+		script(src="https://code.jquery.com/jquery-1.10.2.js")
+		script(src="js/custom.js")
+
+		// CSS
+		link(rel="stylesheet" href="css/normalize.css")
+		link(rel="stylesheet" href="css/skeleton.css")
+		link(rel="stylesheet" href="css/custom.css")
+
+	body
+		.header
+			h1=h1
+
+		.content
+			.container(class="hidden")
+				.row
+					input(type="password" name="account_password" id="account_password" value="password" placeholder="Account password")
+					button(class="button-primary" id="greet") Greet
+
+			.container
+				div(class="six columns")
+					.row
+						img(src="img/user.jpg")
+					div(class="row dialog")
+						select(id="greet_one")
+							option(value="op0") 
+							option(value="op1") Hello
+							option(value="op2") Great. You?
+							option(value="op3") Goodbye
+
+				div(class="six columns")
+					.row
+						img(src="img/user.jpg")
+					div(class="row dialog")
+						p(id="reply")
