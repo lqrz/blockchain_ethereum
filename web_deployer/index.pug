@@ -1,0 +1,104 @@
+html
+	head
+		doctype html
+		title= title
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		// FONT
+		link(href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css")
+
+		script(src="https://code.jquery.com/jquery-1.10.2.js")
+		script(src="js/custom.js")
+
+		// CSS
+		link(rel="stylesheet" href="css/normalize.css")
+		link(rel="stylesheet" href="css/skeleton.css")
+		link(rel="stylesheet" href="css/custom.css")
+		link(rel="stylesheet" href="css/navigator.css")
+
+	body
+		//.title
+		//	h1=h1
+
+		nav.clearfix
+			ul.clearfix
+				li
+					a#nav_create_account Create account
+				li
+					a#nav_deploy Deploy contract
+				li
+					a#nav_contracts Existing contracts
+
+		#nav_create_account_panel.panel
+			.content
+				.container
+					.row
+						table(class="u-full-width" id="table_accounts")
+							thead
+								tr
+									th Account address
+									th Ether
+									//th
+									//th 
+									//th
+							tbody
+								each account in accounts
+									tr
+										td=account.address
+										td=account.amount
+										//td
+										//	button(class="button transfer" data-acc-add=account) Transfer $100
+										//td
+										//	button(class="button get_transactions" data-acc-add=account) Get trxs
+										//td
+										//	button(class="button remove_account" data-acc-add=account) Del account
+
+
+			.content
+				.container
+					.row
+						div(class="three columns")
+							input(type="text" id="new_account_password" value="password" placeholder="Password")
+
+						div(class="three columns")
+							button(class="button-primary" id="create_account") Create account
+
+
+		#nav_deploy_panel.panel
+			.content
+				.container
+					.row
+						div(class="seven columns")
+							label(for="account_selector") From account
+							select#account_selector
+
+						div(class="five columns")
+							label(for="account_password") Account password
+							input(type="password" name="account_password" id="account_password" value="password" placeholder="Account password")
+
+					.row
+						label(for="source_code") Contract source code
+						textarea(type="text" name="source_code" id="source_code" value="" placeholder="Contract source code")
+
+					.row
+						button(class="button-primary" id="deploy_button") Deploy
+
+		#nav_contracts_panel.panel
+			.content
+				.container
+					.row
+						table(class="u-full-width" id="table_contracts")
+							thead
+								tr
+									th Name
+									th ABI
+									th Address
+									//th 
+									//th
+							tbody
+								tr
+										//	button(class="button transfer" data-acc-add=account) Transfer $100
+										//td
+										//	button(class="button get_transactions" data-acc-add=account) Get trxs
+										//td
+										//	button(class="button remove_account" data-acc-add=account) Del account

@@ -1,0 +1,19 @@
+#source_code{
+	width: 100%;
+	height: 30em;
+}
+
+.hidden{
+	display: none;
+}
+
+.columns{
+}
+
+body{
+	margin:	2em;
+}
+
+.container{
+	margin-top: 3em;
+}
