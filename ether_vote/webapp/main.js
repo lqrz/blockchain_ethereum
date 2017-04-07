@@ -54,6 +54,8 @@ var vote_contract_address = process.env.ETHERVOTE_ADDRESS;
 
 var vote_contract_instance = web3.eth.contract(vote_contract_abi).at(vote_contract_address);
 
+var votes = {};
+
 // https://github.com/ethereum/wiki/wiki/JavaScript-API#contract-events
 const vote_attempt = vote_contract_instance.LogVote({}, {fromBlock: 0, toBlock: 'latest'});
 vote_attempt.watch((err, res) => {
@@ -65,6 +67,13 @@ vote_attempt.watch((err, res) => {
 	}else{
 		console.log("Someone voted!");
 		console.log(res.args);
+
+		if (res.args.project in votes){
+			votes[res.args.project].push(res.args.vote);
+		}else{
+			votes[res.args.project] = [res.args.vote];
+		};
+
 		io.emit("new_vote", res.args);
 	};
 });
@@ -73,7 +82,7 @@ router.get('/', function(req, res){
 	console.log("Coinbase address: " + web3.eth.coinbase);
 	console.log("Contract address: " + process.env.ETHERVOTE_ADDRESS);
 
-	res.render('index', {h1: 'Blockchain Vote', accounts: web3.personal.listAccounts});
+	res.render('index', {h1: 'Blockchain Vote', accounts: web3.personal.listAccounts, past_votes: votes});
 });
 
 router.post('/vote', function(req, res){
@@ -91,7 +100,7 @@ router.post('/vote', function(req, res){
 });
 
 io.on('connection', function(socket){
-  console.log('a user connected');
+  console.log('A user connected');
   io.emit("some event", {for: "everyone"});
 });
 

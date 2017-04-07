@@ -8,8 +8,8 @@ html
 
 		script(src="https://code.jquery.com/jquery-1.10.2.js")
 		script(src="js/custom.js")
+		script(type="text/javascript" src="js/votes.js")
 		script(src="/socket.io/socket.io.js")
-		// script(src="https://d3js.org/d3.v4.min.js")
 		script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.js")
 
 		// CSS
@@ -26,6 +26,7 @@ html
 				.row
 					input(type="password" name="account_password" id="account_password" value="password" placeholder="Account password")
 					button(class="button-primary" id="greet") Greet
+					input(type="hidden", id="past_votes", value= JSON.stringify(past_votes))
 
 			.container
 				div(class="three columns")
@@ -41,3 +42,7 @@ html
 			.container
 				canvas(id="myChart_op1" width="400" height="400")
 				canvas(id="myChart_op2" width="400" height="400")
+
+		script(type='text/javascript').
+			VOTES.votes = JSON.parse($('#past_votes').val());
+			console.log(VOTES.votes);

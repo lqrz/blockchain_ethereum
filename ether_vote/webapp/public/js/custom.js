@@ -1,17 +1,12 @@
 $(document).ready(function(){
 
-	var votes = {
-					"op1": [],
-					"op2": []
-				};
-
 	// Notice that I’m not specifying any URL when I call io(), since it defaults to trying to connect to the host that serves the page.
 	var socket = io();
 
 	socket.on("new_vote", function(msg){
 		console.log(msg);
-		votes[msg.project].push(msg.vote);
-		console.log(votes);
+		VOTES.votes[msg.project].push(msg.vote);
+		console.log(VOTES.votes);
 		plot();
 	});
 
@@ -27,14 +22,15 @@ $(document).ready(function(){
 
 	function plot(){
 		console.log("Plotting: " + $("#project option:selected").val());
-		console.log(freq_count(votes[$("#project option:selected").val()]));
+		console.log(freq_count(VOTES.votes[$("#project option:selected").val()]));
+		console.log(VOTES.votes);
 		var myChart = new Chart($("#myChart_"+$("#project option:selected").val()), {
 		    type: 'bar',
 		    data: {
 		        labels: ["Great", "Terrible"],
 		        datasets: [{
 		            label: '# of Votes',
-		            data: freq_count(votes[$("#project option:selected").val()]),
+		            data: freq_count(VOTES.votes[$("#project option:selected").val()]),
 		            backgroundColor: [
 		                'rgba(75, 192, 192, 0.2)',
 		                'rgba(255, 99, 132, 0.2)'
