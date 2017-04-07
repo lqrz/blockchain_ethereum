@@ -2,6 +2,9 @@
 
 Repo with some toy examples on Solidity.
 
+### Ether_vote
+Allows people to vote on projects. Votes get stored on the Blockchain. The webapp server watches Blockchain events and transmits them to the client using Socket.io.
+
 ### greeter
 Contains a simple inheritance example.
 
