@@ -13,6 +13,8 @@ var app = express();
 var http = require('http').Server(app);
 var io = require("socket.io").listen(http);
 
+const vote_contract_abi = require('./contract/ethervote_abi.json').abi;
+
 var router =  express.Router();
 
 function compile(str, path){
@@ -44,12 +46,19 @@ app.use('*',function(req,res){
 http.listen(5000);
 console.log('App listening at 5000');
 
-var vote_contract_address = "0xd47bd08f5a57040ce71a838dd960fb9510b06fc5";
-var vote_contract_abi = [{"constant":false,"inputs":[{"name":"project","type":"string"},{"name":"vote","type":"bool"}],"name":"vote","outputs":[],"payable":false,"type":"function"},{"payable":false,"type":"fallback"},{"anonymous":false,"inputs":[{"indexed":false,"name":"project","type":"string"},{"indexed":false,"name":"vote","type":"bool"},{"indexed":false,"name":"voter_address","type":"address"}],"name":"LogVote","type":"event"}];
+if (process.env.ETHERVOTE_ADDRESS==undefined){
+	throw new Error("Missing ETHERVOTE_ADDRESS environment variable.");
+};
+
+var vote_contract_address = process.env.ETHERVOTE_ADDRESS;
 
 var vote_contract_instance = web3.eth.contract(vote_contract_abi).at(vote_contract_address);
 
-var filter = vote_contract_instance.LogVote().watch(function(err, res){
+// https://github.com/ethereum/wiki/wiki/JavaScript-API#contract-events
+const vote_attempt = vote_contract_instance.LogVote({}, {fromBlock: 0, toBlock: 'latest'});
+vote_attempt.watch((err, res) => {
+	console.log("Entering the watch");
+
 	if (err){
 		console.log("There was an error.");
 		console.log(err);
@@ -62,6 +71,7 @@ var filter = vote_contract_instance.LogVote().watch(function(err, res){
 
 router.get('/', function(req, res){
 	console.log("Coinbase address: " + web3.eth.coinbase);
+	console.log("Contract address: " + process.env.ETHERVOTE_ADDRESS);
 
 	res.render('index', {h1: 'Blockchain Vote', accounts: web3.personal.listAccounts});
 });
@@ -73,7 +83,7 @@ router.post('/vote', function(req, res){
 
 	web3.personal.unlockAccount(web3.eth.coinbase, account_password, 1000);
 
-	console.log("Registering vote: " + vote);
+	console.log("Registering vote: " + vote + " to project: " + project);
 	vote_contract_instance.vote(project, vote, {from: web3.eth.coinbase});
 
 	res.send(JSON.stringify({'status': 'success'}));
