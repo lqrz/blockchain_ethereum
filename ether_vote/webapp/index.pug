@@ -1,0 +1,43 @@
+html
+	head
+		doctype html
+		title= title
+
+		// FONT
+		link(href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css")
+
+		script(src="https://code.jquery.com/jquery-1.10.2.js")
+		script(src="js/custom.js")
+		script(src="/socket.io/socket.io.js")
+		// script(src="https://d3js.org/d3.v4.min.js")
+		script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.js")
+
+		// CSS
+		link(rel="stylesheet" href="css/normalize.css")
+		link(rel="stylesheet" href="css/skeleton.css")
+		link(rel="stylesheet" href="css/custom.css")
+
+	body
+		.header
+			h1=h1
+
+		.content
+			.container(class="hidden")
+				.row
+					input(type="password" name="account_password" id="account_password" value="password" placeholder="Account password")
+					button(class="button-primary" id="greet") Greet
+
+			.container
+				div(class="three columns")
+					select(id="project")
+						option(value="op0") ...
+						option(value="op1") Blockchain is...
+						option(value="op2") NodeJS is...
+						option(value="op3") Other projects
+				div(class="nine columns")
+						button(class="button-primary boton" id="true") Great
+						button(class="button boton" id="false") Terrible!
+
+			.container
+				canvas(id="myChart_op1" width="400" height="400")
+				canvas(id="myChart_op2" width="400" height="400")

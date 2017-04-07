@@ -1,0 +1,48 @@
+.hidden{
+	display: none;
+}
+
+.columns{
+}
+
+body{
+	margin:	2em;
+}
+
+img{
+    height: auto; 
+    width: auto; 
+    max-width: 200px; 
+    max-height: 200px;
+}
+
+.content{
+	margin-top: 3em;
+}
+
+.dialog{
+	width: 200px;
+	text-align: center;
+}
+
+.header{
+	color: #1EAEDB;
+}
+
+.boton{
+	width: 122px;
+	margin-left: 2em;
+}
+
+.container{
+	margin-top: 4em;
+}
+
+/*.chart div {
+  font: 10px sans-serif;
+  background-color: steelblue;
+  text-align: right;
+  padding: 3px;
+  margin: 1px;
+  color: white;
+}*/
